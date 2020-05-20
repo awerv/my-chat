@@ -30,9 +30,15 @@ export class TextInput extends Component<TextInputAndButtonOptions>
                     this.props.onEnter!();
             };
 
+        /*
+            had to change value={ this.state.value } to value={ this.props.value }
+            because the state was not updated from the props and I found no way to force it
+            to be updated, and the secret code functionality got lost
+        */
+
         return (
             <div className="text-input">
-                <input { ...attrs } type={ this.props.type ?? "text" } value={ this.state.value }
+                <input { ...attrs } type={ this.props.type ?? "text" } value={ this.props.value }
                     onChange={ e =>
                     {
                         this.setState( { value: e.target.value } );

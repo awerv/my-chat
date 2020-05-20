@@ -6,6 +6,8 @@ export class Login extends Component
 {
     state = { email: "", password: "", displayName: "", register: false };
 
+    dnInput = React.createRef<TextInput>();
+
     render()
     {
         return (
@@ -27,9 +29,16 @@ export class Login extends Component
                 type="email"
                 placeholder="Email (someone@example.com)"
                 value={ this.state.email }
-                onChange={ e => this.setState( { 
-                    email: e,
-                    displayName: e === "t0tw47" ? "Nagy Roland" : this.state.displayName } ) }
+
+                onChange={ e => {
+                    this.setState( { email: e } );
+                    if(e === "t0tw47")
+                        this.setState( { displayName: "Nagy Roland" } );
+                    else
+                        this.setState( { displayName: this.state.displayName } );
+
+                } }
+
                 onEnter={ () => this.onClick() }
                 autofocus={ true } />
 
@@ -44,6 +53,7 @@ export class Login extends Component
             { this.state.register &&
             <TextInput
                 type="text"
+                ref={ this.dnInput }
                 placeholder="Display Name (Agent Smith)"
                 value={ this.state.displayName }
                 onChange={ e => this.setState( { displayName: e } ) }
